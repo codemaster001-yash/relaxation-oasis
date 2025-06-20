@@ -1,0 +1,2414 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relaxation Oasis | Complete Mindfulness Suite</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Quicksand:wght@500;700&display=swap">
+    <style>
+        /* Base Styles & Variables */
+        :root {
+            /* Light Theme */
+            --color-bg: #f8f9fa;
+            --color-text: #212529;
+            --color-primary: #4361ee;
+            --color-secondary: #f72585;
+            --color-card: #ffffff;
+            --color-shadow: rgba(0, 0, 0, 0.1);
+            --color-success: #4cc9f0;
+            --color-warning: #ffd166;
+            --color-danger: #ef476f;
+            --color-love: #ff6b6b;
+            --color-calm: #06d6a0;
+
+            /* Animation speeds */
+            --animation-fast: 0.3s;
+            --animation-medium: 0.5s;
+            --animation-slow: 0.8s;
+
+            /* Fonts */
+            --font-main: 'Nunito', sans-serif;
+            --font-heading: 'Quicksand', sans-serif;
+        }
+
+        [data-theme="dark"] {
+            /* Dark Theme */
+            --color-bg: #121212;
+            --color-text: #e0e0e0;
+            --color-primary: #4895ef;
+            --color-secondary: #f72585;
+            --color-card: #1e1e1e;
+            --color-shadow: rgba(0, 0, 0, 0.3);
+            --color-success: #4cc9f0;
+            --color-warning: #ffd166;
+            --color-danger: #ef476f;
+            --color-love: #ff6b6b;
+            --color-calm: #06d6a0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            transition: background-color var(--animation-medium) ease, color var(--animation-medium) ease;
+            min-height: 100vh;
+            padding-bottom: 80px;
+            overflow-x: hidden;
+            position: relative;
+            background: linear-gradient(135deg, var(--color-bg) 0%, #e6f7ff 100%);
+        }
+
+        /* Layout */
+        .container {
+            max-width: 100%;
+            padding: 15px;
+            margin: 0 auto;
+        }
+
+        /* Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-around;
+            background-color: var(--color-card);
+            padding: 12px 0;
+            box-shadow: 0 -2px 10px var(--color-shadow);
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-btn {
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: var(--color-text);
+            padding: 10px 20px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all var(--animation-fast) ease;
+            position: relative;
+        }
+
+        .nav-btn.active {
+            color: var(--color-primary);
+            transform: translateY(-8px);
+        }
+
+        .nav-btn::after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 5px;
+            height: 5px;
+            background-color: var(--color-primary);
+            border-radius: 50%;
+            opacity: 0;
+            transition: opacity var(--animation-fast) ease;
+        }
+
+        .nav-btn.active::after {
+            opacity: 1;
+        }
+
+        /* Screens */
+        .screen {
+            display: none;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity var(--animation-medium) ease, transform var(--animation-medium) ease;
+        }
+
+        /* styles for grounding screen */
+        .grounding-container {
+            text-align: center;
+            padding: 20px;
+        }
+
+        /* ...existing code... */
+        .observation-steps-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 18px;
+            margin: 30px 0;
+        }
+
+        .observation-step-card {
+            display: flex;
+            align-items: flex-start;
+            background: var(--color-card);
+            border-radius: 15px;
+            box-shadow: 0 4px 15px var(--color-shadow);
+            padding: 18px 18px 18px 0;
+            gap: 18px;
+            border-left: 6px solid var(--color-primary);
+            transition: box-shadow 0.3s, transform 0.3s;
+        }
+
+        .observation-step-card:hover {
+            box-shadow: 0 8px 25px var(--color-shadow);
+            transform: translateY(-3px) scale(1.02);
+            border-left: 6px solid var(--color-secondary);
+        }
+
+        .step-number {
+            min-width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            color: #fff;
+            font-size: 1.6rem;
+            font-weight: bold;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            box-shadow: 0 2px 8px rgba(67, 97, 238, 0.15);
+            margin-top: 4px;
+        }
+
+        .observation-step-card h4 {
+            margin: 0 0 6px 0;
+            color: var(--color-primary);
+            font-size: 1.15rem;
+        }
+
+        .sense-item {
+            background-color: var(--color-card);
+            border-radius: 15px;
+            padding: 15px;
+            margin: 10px 0;
+            cursor: pointer;
+            transition: all var(--animation-fast) ease;
+        }
+
+        .sense-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 10px var(--color-shadow);
+        }
+
+        .sense-item.completed {
+            background-color: rgba(76, 201, 240, 0.2);
+            border-left: 4px solid var(--color-success);
+        }
+
+        .screen.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Cards & Buttons */
+        .card {
+            background-color: var(--color-card);
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+            transition: transform var(--animation-fast) ease, box-shadow var(--animation-fast) ease;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px var(--color-shadow);
+        }
+
+        .btn {
+            background: linear-gradient(135deg, var(--color-primary), #5a7eff);
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--animation-fast) ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
+            margin: 10px 5px;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(67, 97, 238, 0.4);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, var(--color-secondary), #ff4d94);
+        }
+
+        #progress-visited-fill {
+            opacity: 0.5;
+        }
+
+        #progress-completed-fill {
+            opacity: 1;
+        }
+
+        .btn-calm {
+            background: linear-gradient(135deg, var(--color-calm), #07b893);
+        }
+
+        .btn-love {
+            background: linear-gradient(135deg, var(--color-love), #ff5252);
+        }
+
+        /* Typography */
+        h1 {
+            font-family: var(--font-heading);
+            font-size: 2.4rem;
+            margin-bottom: 20px;
+            color: var(--color-primary);
+            text-align: center;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            font-size: 1.6rem;
+            margin-bottom: 20px;
+            color: var(--color-text);
+            position: relative;
+            padding-bottom: 10px;
+            font-family: var(--font-heading);
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--color-primary);
+            border-radius: 3px;
+        }
+
+        p {
+            line-height: 1.7;
+            margin-bottom: 20px;
+            font-size: 1.05rem;
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--color-card);
+            border: none;
+            box-shadow: 0 2px 10px var(--color-shadow);
+            cursor: pointer;
+            z-index: 101;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        /* Light mode: charcoal button, white moon */
+        .theme-toggle {
+            background-color: #222 !important;
+        }
+
+        .theme-toggle .fa-moon {
+            color: #fff !important;
+        }
+
+        /* Dark mode: white button, yellow sun */
+        [data-theme="dark"] .theme-toggle {
+            background-color: #fff !important;
+        }
+
+        [data-theme="dark"] .theme-toggle .fa-sun {
+            color: #FFD166 !important;
+        }
+
+        /* Home Screen */
+        .welcome-card {
+            text-align: center;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 30px 20px;
+            border-radius: 20px;
+            margin-bottom: 25px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .welcome-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://media.istockphoto.com/id/886630296/photo/woman-meditating-on-the-beach-in-lotus-position-silhouette-black-and-white.jpg?s=612x612&w=0&k=20&c=6D6_mZz4Yd6S9sjBacaeYdtLoV9aD7FlLgBQmmVAHZc=') center/cover no-repeat;
+            opacity: 0.2;
+        }
+
+        .welcome-card h1 {
+            color: white;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        .welcome-card p {
+            font-size: 1.2rem;
+            position: relative;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        .stat-card {
+            background-color: var(--color-card);
+            border-radius: 15px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .stat-card i {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: var(--color-primary);
+        }
+
+        .stat-card h3 {
+            font-size: 1.8rem;
+            color: var(--color-primary);
+        }
+
+        /* Breathing Exercise */
+        .breathing-container {
+            text-align: center;
+            padding: 20px;
+            position: relative;
+            height: 300px;
+            margin: 20px 0;
+        }
+
+        .breathing-circle {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            transition: all var(--animation-slow) ease;
+            box-shadow: 0 0 30px rgba(67, 97, 238, 0.3);
+        }
+
+        .breathing-timer {
+            font-size: 3.5rem;
+            font-weight: bold;
+            color: white;
+        }
+
+        .breathing-phase {
+            font-size: 1.5rem;
+            margin-top: 15px;
+            font-weight: 600;
+            color: var(--color-primary);
+        }
+
+        .cycle-count {
+            position: absolute;
+            top: 20px;
+            left: 8px;
+            /* Change from 20px to 8px or lower for more left shift */
+            background-color: var(--color-card);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 55px;
+            margin-top: 2px;
+            margin-bottom: 30px;
+            /* Add this line or increase the value for more space */
+        }
+
+        /* Body Scan */
+        .scan-intro {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .body-cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .body-card {
+            background: var(--color-card);
+            border-radius: 18px;
+            padding: 25px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            opacity: 0.4;
+            transform: translateY(20px);
+            cursor: pointer;
+        }
+
+        .body-card.active {
+            opacity: 1;
+            transform: translateY(0);
+            box-shadow: 0 12px 30px rgba(67, 97, 238, 0.2);
+            border: 2px solid var(--color-primary);
+            cursor: pointer;
+        }
+
+        .body-card.completed {
+            background: rgba(76, 201, 240, 0.1);
+            border: 2px solid var(--color-success);
+        }
+
+        .body-card.completed .body-icon {
+            background: var(--color-success);
+            transform: scale(0.95);
+        }
+
+        .body-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: var(--color-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            font-size: 30px;
+            color: white;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(67, 97, 238, 0.3);
+        }
+
+        .body-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: var(--color-text);
+        }
+
+        .timer-display {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--color-primary);
+            margin-top: 10px;
+            background: rgba(67, 97, 238, 0.1);
+            padding: 8px 15px;
+            border-radius: 30px;
+            display: inline-block;
+        }
+
+        .progress-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin: 30px 0;
+            padding: 15px;
+            background: rgba(76, 201, 240, 0.1);
+            border-radius: 15px;
+        }
+
+        .progress-bar {
+            flex: 1;
+            height: 10px;
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+            border-radius: 5px;
+            transition: width 0.5s ease;
+            width: 0%;
+        }
+
+        .progress-text {
+            font-weight: 600;
+            min-width: 70px;
+            color: var(--color-primary);
+        }
+
+        /* Mindful Observation */
+        .observation-prompt {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            padding: 25px;
+            border-radius: 15px;
+            color: white;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .visualization {
+            width: 100%;
+            height: 200px;
+            border-radius: 15px;
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            margin: 20px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .observation-timer-progress {
+            height: 8px;
+            background: #e6f7ff;
+            border-radius: 4px;
+            margin-top: 18px;
+            overflow: hidden;
+        }
+
+        #observation-timer-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+            transition: width 0.2s;
+        }
+
+        /* Loving Kindness */
+        .heart {
+            font-size: 4rem;
+            color: var(--color-love);
+            animation: pulse 2s infinite;
+        }
+
+        .person-card {
+            background-color: var(--color-card);
+            border-radius: 15px;
+            padding: 15px;
+            margin: 10px 0;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+            transition: all var(--animation-fast) ease;
+        }
+
+        .person-card:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 10px var(--color-shadow);
+        }
+
+        .person-card.active {
+            background-color: rgba(255, 107, 107, 0.2);
+            border-left: 4px solid var(--color-love);
+        }
+
+        .person-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--color-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        /* Progressive Relaxation */
+        .muscle-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px;
+            background-color: var(--color-card);
+            border-radius: 10px;
+            margin: 8px 0;
+            transition: all var(--animation-fast) ease;
+        }
+
+        .muscle-group.active {
+            background-color: rgba(67, 97, 238, 0.2);
+            border-left: 4px solid var(--color-primary);
+        }
+
+        .muscle-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: var(--color-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        /* Nature Sounds */
+        .sound-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .sound-card {
+            background-color: var(--color-card);
+            border-radius: 15px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all var(--animation-fast) ease;
+        }
+
+        .sound-card.active {
+            background-color: rgba(67, 97, 238, 0.2);
+            border: 2px solid var(--color-primary);
+        }
+
+        .sound-card i {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: var(--color-primary);
+        }
+
+        /* Journal */
+        .journal-entry {
+            background-color: var(--color-card);
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 15px;
+            border-radius: 15px;
+            border: 2px solid rgba(0, 0, 0, 0.1);
+            background-color: var(--color-card);
+            color: var(--color-text);
+            font-family: var(--font-main);
+            min-height: 150px;
+            resize: vertical;
+            transition: border-color var(--animation-fast) ease;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: var(--color-primary);
+        }
+
+        /* Animations */
+        @keyframes breatheIn {
+            0% {
+                transform: scale(1);
+            }
+
+            100% {
+                transform: scale(1.2);
+            }
+        }
+
+        @keyframes breatheOut {
+            0% {
+                transform: scale(1.2);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        /* ...existing code... */
+        @media (max-width: 600px) {
+            .observation-steps-grid {
+                grid-template-columns: 1fr;
+                gap: 10px;
+                margin: 12px 0;
+            }
+
+            .observation-step-card {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 12px 10px 12px 10px;
+                gap: 10px;
+                width: 100%;
+                box-sizing: border-box;
+            }
+
+            .step-number {
+                min-width: 36px;
+                height: 36px;
+                font-size: 1rem;
+                margin-right: 0;
+                margin-bottom: 8px;
+            }
+
+            .observation-step-card h4 {
+                font-size: 1rem;
+            }
+
+            .observation-step-card p {
+                font-size: 0.98rem;
+            }
+        }
+
+        /* ...existing code... */
+
+        .pulse {
+            animation: pulse 2s infinite ease-in-out;
+        }
+
+        .float {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (min-width: 768px) {
+            .container {
+                max-width: 700px;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Theme Toggle Button -->
+    <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+        <i class="fas fa-moon"></i>
+    </button>
+
+    <div class="container">
+        <!-- Home Screen -->
+        <section id="home-screen" class="screen active">
+            <div class="welcome-card">
+                <h1>Welcome to Relaxation Oasis</h1>
+                <p>Your sanctuary for mindfulness and stress relief</p>
+            </div>
+
+            <div class="card">
+                <h2>Today's Mindfulness Tip</h2>
+                <div
+                    style="background: rgba(76, 201, 240, 0.1); padding: 20px; border-radius: 15px; margin-bottom: 20px;">
+                    <p class="pulse"
+                        style="font-size: 1.2rem; font-weight: 600; text-align: center; color: var(--color-primary);">
+                        <i class="fas fa-lightbulb"></i>
+                        <span id="mindfulness-tip"></span>
+                    </p>
+                </div>
+                <p id="mindfulness-fact"></p>
+            </div>
+
+            <div class="card">
+                <h2>Quick Mindfulness Activities</h2>
+                <div class="stats-grid">
+                    <div class="stat-card" data-target="breathing-screen">
+                        <i class="fas fa-wind"></i>
+                        <h3>4-7-8</h3>
+                        <p>Breathing</p>
+                    </div>
+                    <div class="stat-card" data-target="body-scan-screen">
+                        <i class="fas fa-user-md"></i>
+                        <h3>Body</h3>
+                        <p>Scan</p>
+                    </div>
+                    <div class="stat-card" data-target="observation-screen">
+                        <i class="fas fa-eye"></i>
+                        <h3>Mindful</h3>
+                        <p>Observation</p>
+                    </div>
+                    <div class="stat-card" data-target="sounds-screen">
+                        <i class="fas fa-music"></i>
+                        <h3>Nature</h3>
+                        <p>Sounds</p>
+                    </div>
+                    <div class="stat-card" data-target="journal-screen">
+                        <i class="fas fa-book"></i>
+                        <h3>Journal</h3>
+                        <p>Gratitude</p>
+                    </div>
+                    <!-- Add this inside the .stats-grid in the home screen -->
+                    <div class="stat-card" data-target="grounding-screen">
+                        <i class="fas fa-hand-sparkles"></i>
+                        <h3>5-4-3-2-1</h3>
+                        <p>Grounding</p>
+                    </div>
+                    <!-- Progressive Muscle Relaxation -->
+                    <div class="stat-card" data-target="progressive-screen">
+                        <i class="fas fa-spa"></i>
+                        <h3>Relaxation</h3>
+                        <p>Muscle</p>
+                    </div>
+                    <!-- Loving Kindness Meditation -->
+                    <div class="stat-card" data-target="loving-kindness-screen">
+                        <i class="fas fa-heart"></i>
+                        <h3>Kindness</h3>
+                        <p>Meditation</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Your Progress</h2>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 20px 0;">
+                    <div style="text-align: center;">
+                        <div id="unique-days" style="font-size: 2rem; font-weight: bold; color: var(--color-primary);">0
+                        </div>
+                        <p>Days Visited</p>
+                    </div>
+                    <div style="text-align: center;">
+                        <div id="total-visits" style="font-size: 2rem; font-weight: bold; color: var(--color-calm);">0
+                        </div>
+                        <p>Total Visits</p>
+                    </div>
+                </div>
+                <div class="progress-container">
+                    <div class="progress-bar" style="position: relative;">
+                        <div id="progress-visited-fill"
+                            style="height: 100%; background: linear-gradient(90deg, #4895ef, #4cc9f0); border-radius: 5px; position: absolute; left: 0; top: 0; width: 0%; z-index: 1;">
+                        </div>
+                        <div id="progress-completed-fill"
+                            style="height: 100%; background: linear-gradient(90deg, #06d6a0, #43e97b); border-radius: 5px; position: absolute; left: 0; top: 0; width: 0%; z-index: 2;">
+                        </div>
+                    </div>
+                    <div class="progress-text" id="progress-text">0% completed</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Breathing Exercise Screen -->
+        <section id="breathing-screen" class="screen">
+            <div class="card">
+                <h2>4-7-8 Breathing Exercise</h2>
+                <p>Reduce anxiety and stress with this powerful breathing technique</p>
+
+                <div class="breathing-container">
+                    <div class="cycle-count">Cycle: <span id="current-cycle">1</span>/4</div>
+                    <div class="breathing-circle">
+                        <div class="breathing-timer" id="breath-timer">4</div>
+                    </div>
+                    <div class="breathing-phase" id="breath-phase">Inhale deeply</div>
+
+                    <div class="controls">
+                        <button id="start-breath-btn" class="btn">
+                            <i class="fas fa-play"></i> Start
+                        </button>
+                        <button id="reset-breath-btn" class="btn btn-secondary">
+                            <i class="fas fa-redo"></i> Reset
+                        </button>
+                    </div>
+                </div>
+
+                <div class="visual-progression">
+                    <div
+                        style="display: flex; justify-content: space-between; height: 100px; margin: 20px 0; position: relative;">
+                        <div
+                            style="flex: 1; background: linear-gradient(to right, #ef476f, #ffd166); border-radius: 10px 0 0 10px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">
+                            Stress</div>
+                        <div
+                            style="flex: 1; background: #ffd166; display: flex; align-items: center; justify-content: center; color: #333; font-weight: bold;">
+                            Transition</div>
+                        <div
+                            style="flex: 1; background: linear-gradient(to right, #ffd166, #06d6a0); border-radius: 0 10px 10px 0; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">
+                            Calm</div>
+                        <div id="progression-indicator"
+                            style="position: absolute; top: -20px; left: 10%; width: 30px; height: 30px; background: var(--color-card); border-radius: 50%; box-shadow: 0 2px 10px var(--color-shadow); display: flex; align-items: center; justify-content: center; transition: left var(--animation-slow) ease;">
+                            <i class="fas fa-heart" style="color: var(--color-danger);"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Why This Works</h3>
+                <p>The 4-7-8 breathing technique works by regulating your nervous system and increasing oxygen intake,
+                    which helps reduce anxiety and promote relaxation.</p>
+                <p>By extending the exhale, you activate your parasympathetic nervous system, which counteracts the
+                    stress response.</p>
+            </div>
+        </section>
+
+        <!-- Body Scan Meditation -->
+        <section id="body-scan-screen" class="screen">
+            <div class="card">
+                <h2><i class="fas fa-user-md"></i> Body Scan Meditation</h2>
+                <p>Connect with your body and cultivate self-awareness through this healing practice</p>
+
+                <div class="scan-intro">
+                    <div class="progress-container">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="scan-progress-fill" style="width: 0%"></div>
+                        </div>
+                        <div class="progress-text" id="scan-progress-text">0%</div>
+                    </div>
+                    <button class="btn" id="start-scan">
+                        <i class="fas fa-play-circle"></i> Start Body Scan
+                    </button>
+                    <button class="btn btn-secondary" id="reset-scan">
+                        <i class="fas fa-redo"></i> Reset
+                    </button>
+                </div>
+
+                <div class="body-cards-container">
+                    <!-- Body cards will be inserted here by JavaScript -->
+                </div>
+
+                <div style="text-align: center; margin-top: 20px;">
+                    <button class="btn btn-calm" id="complete-scan" style="display: none;">
+                        <i class="fas fa-check-circle"></i> Complete Meditation
+                    </button>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Why Body Scan Works</h3>
+                <p>Research shows that body scan meditation:</p>
+                <ul style="padding-left: 20px; margin: 15px 0;">
+                    <li>Reduces physical tension by 45%</li>
+                    <li>Increases body awareness and interoception</li>
+                    <li>Helps identify stress-related physical symptoms early</li>
+                    <li>Promotes self-compassion and body acceptance</li>
+                </ul>
+                <p>Studies from Harvard Medical School show regular practice decreases chronic pain perception by 30%.
+                </p>
+            </div>
+        </section>
+
+        <!-- Mindful Observation -->
+        <section id="observation-screen" class="screen">
+            <div class="card">
+                <h2><i class="fas fa-eye"></i> Mindful Observation</h2>
+                <p>Rediscover the wonder in ordinary things through intentional observation</p>
+
+                <div class="observation-prompt">
+                    <h3>Today's Observation Focus</h3>
+                    <p id="observation-text" style="font-size: 1.4rem; font-weight: 600;">The play of light and shadow
+                        around you</p>
+                </div>
+
+                <div class="visualization">
+                    <div style="text-align: center; color: white;">
+                        <i class="fas fa-sun float" style="font-size: 4rem;"></i>
+                        <h3 style="margin-top: 15px;">Focus on Light Patterns</h3>
+                    </div>
+                </div>
+
+                <div class="observation-steps-grid">
+                    <div class="observation-step-card">
+                        <div class="step-number">1</div>
+                        <div>
+                            <h4>Choose Your Focus</h4>
+                            <p>Select something small and ordinary from your environment - a plant, a cup, or the prompt
+                                above.</p>
+                        </div>
+                    </div>
+                    <div class="observation-step-card">
+                        <div class="step-number">2</div>
+                        <div>
+                            <h4>Engage Your Senses</h4>
+                            <p>Notice its color, texture, shape, and any movement. Observe it as if seeing it for the
+                                first time.</p>
+                        </div>
+                    </div>
+                    <div class="observation-step-card">
+                        <div class="step-number">3</div>
+                        <div>
+                            <h4>Set a Timer</h4>
+                            <p>Spend 3-5 minutes simply observing without judgment or analysis.</p>
+                            <div style="display: flex; gap: 10px; margin-top: 10px;">
+                                <button class="btn observation-timer-btn" data-minutes="3">3 min</button>
+                                <button class="btn observation-timer-btn" data-minutes="5">5 min</button>
+                                <button class="btn observation-timer-btn" data-minutes="10">10 min</button>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 12px; margin-top: 18px;">
+                                <span id="observation-timer-countdown"
+                                    style="min-width: 36px; font-weight: bold; color: var(--color-primary); font-size: 1.1rem;">0:00</span>
+                                <div class="observation-timer-progress" style="flex: 1;">
+                                    <div id="observation-timer-fill"
+                                        style="height: 100%; width: 100%; background: linear-gradient(90deg, var(--color-primary), var(--color-secondary)); transition: width 0.2s;">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="observation-step-card">
+                        <div class="step-number">4</div>
+                        <div>
+                            <h4>Reflect</h4>
+                            <p>What new details did you notice? How did this practice change your relationship to this
+                                ordinary object?</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>The Science of Observation</h3>
+                <p>Mindful observation:</p>
+                <ul style="padding-left: 20px; margin: 15px 0;">
+                    <li>Reduces mind-wandering by 47% (University of Miami study)</li>
+                    <li>Increases appreciation for ordinary experiences</li>
+                    <li>Trains attention and present-moment awareness</li>
+                    <li>Lowers anxiety by creating cognitive space</li>
+                </ul>
+                <p>Regular practice rewires the brain to notice positive details in daily life.</p>
+            </div>
+        </section>
+
+        <!-- Loving Kindness Meditation -->
+        <section id="loving-kindness-screen" class="screen">
+            <div class="card">
+                <h2><i class="fas fa-heart"></i> Loving Kindness Meditation</h2>
+                <p>Cultivate compassion for yourself and others with this heart-opening practice</p>
+
+                <div class="observation-prompt"
+                    style="background: linear-gradient(135deg, #4361ee 0%, #4cc9f0 100%); margin-bottom: 18px;">
+                    <span style="font-size: 1.15rem; font-weight: 600;">
+                        “The simple act of wishing well for yourself and others can transform your heart and your life.”
+                    </span>
+                </div>
+
+
+                <div class="observation-step-card">
+                    <div class="step-number">1</div>
+                    <div>
+                        <h4>Center Yourself</h4>
+                        <p>Close your eyes and take three deep breaths. Place your hand on your heart.</p>
+                    </div>
+                </div>
+
+                <div class="observation-step-card">
+                    <div class="step-number">2</div>
+                    <div>
+                        <h4>Direct Kindness to Yourself</h4>
+                        <p>Repeat silently: "May I be happy. May I be healthy. May I be safe. May I live with ease."</p>
+                    </div>
+                </div>
+
+                <div class="observation-step-card">
+                    <div class="step-number">3</div>
+                    <div>
+                        <h4>Extend to Others</h4>
+                        <p>Choose a person for each category and repeat the phrases for them:</p>
+
+                        <div class="person-card" data-person="loved">
+                            <div class="person-icon">
+                                <i class="fas fa-user-friends"></i>
+                            </div>
+                            <div>
+                                <h4>A Loved One</h4>
+                                <p>Family member or close friend</p>
+                            </div>
+                        </div>
+
+                        <div class="person-card" data-person="neutral">
+                            <div class="person-icon">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div>
+                                <h4>A Neutral Person</h4>
+                                <p>Someone you see regularly but don't know well</p>
+                            </div>
+                        </div>
+
+                        <div class="person-card" data-person="difficult">
+                            <div class="person-icon">
+                                <i class="fas fa-user-times"></i>
+                            </div>
+                            <div>
+                                <h4>A Difficult Person</h4>
+                                <p>Someone you have challenges with</p>
+                            </div>
+                        </div>
+
+                        <div class="person-card" data-person="all">
+                            <div class="person-icon">
+                                <i class="fas fa-globe-americas"></i>
+                            </div>
+                            <div>
+                                <h4>All Beings</h4>
+                                <p>Extend kindness to all living creatures</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="text-align: center; margin-top: 20px;">
+                        <button id="reset-kindness" class="btn btn-secondary">
+                            <i class="fas fa-redo"></i> Reset Meditation
+                        </button>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>Benefits of Loving Kindness</h3>
+                    <p>Research shows this practice:</p>
+                    <ul style="padding-left: 20px; margin: 15px 0;">
+                        <li>Increases positive emotions by 38%</li>
+                        <li>Reduces symptoms of depression</li>
+                        <li>Enhances social connection and empathy</li>
+                        <li>Decreases chronic pain perception</li>
+                        <li>Slows biological aging at the cellular level</li>
+                    </ul>
+                    <p>A Stanford study found just 7 minutes daily increases social connectedness and positive mood.</p>
+                </div>
+        </section>
+
+        <!-- Progressive Relaxation -->
+        <section id="progressive-screen" class="screen">
+            <div class="card">
+                <h2><i class="fas fa-spa"></i> Progressive Muscle Relaxation</h2>
+                <p>Release tension throughout your body with this systematic technique</p>
+
+                <div style="text-align: center; margin: 20px 0;">
+                    <div
+                        style="display: inline-flex; gap: 10px; background-color: var(--color-card); padding: 15px; border-radius: 15px;">
+                        <div style="text-align: center;">
+                            <div
+                                style="width: 60px; height: 60px; border-radius: 50%; background-color: var(--color-primary); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem; margin: 0 auto 10px;">
+                                5
+                            </div>
+                            <p>Tense</p>
+                        </div>
+                        <div style="display: flex; align-items: center; font-size: 2rem;">→</div>
+                        <div style="text-align: center;">
+                            <div
+                                style="width: 60px; height: 60px; border-radius: 50%; background-color: var(--color-success); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.5rem; margin: 0 auto 10px;">
+                                20
+                            </div>
+                            <p>Release</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="observation-step-card">
+                    <div class="step-number">1</div>
+                    <div>
+                        <h4>Tense Muscle Groups</h4>
+                        <p>Start with your feet and work upward. Tense each muscle group for 5 seconds.</p>
+                        <div class="muscle-group" data-muscle="feet">
+                            <div class="muscle-icon">
+                                <i class="fas fa-shoe-prints"></i>
+                            </div>
+                            <div>
+                                <h4>Feet and Toes</h4>
+                                <p>Curl your toes downward</p>
+                            </div>
+                        </div>
+
+                        <div class="muscle-group" data-muscle="legs">
+                            <div class="muscle-icon">
+                                <i class="fas fa-walking"></i>
+                            </div>
+                            <div>
+                                <h4>Legs</h4>
+                                <p>Tighten calf and thigh muscles</p>
+                            </div>
+                        </div>
+
+                        <div class="muscle-group" data-muscle="glutes">
+                            <div class="muscle-icon">
+                                <i class="fas fa-circle"></i>
+                            </div>
+                            <div>
+                                <h4>Glutes and Hips</h4>
+                                <p>Squeeze buttocks together</p>
+                            </div>
+                        </div>
+
+                        <div class="muscle-group" data-muscle="stomach">
+                            <div class="muscle-icon">
+                                <i class="fas fa-apple-alt"></i>
+                            </div>
+                            <div>
+                                <h4>Stomach</h4>
+                                <p>Suck in your abdomen</p>
+                            </div>
+                        </div>
+
+                        <div class="muscle-group" data-muscle="hands">
+                            <div class="muscle-icon">
+                                <i class="fas fa-hand-rock"></i>
+                            </div>
+                            <div>
+                                <h4>Hands and Arms</h4>
+                                <p>Make fists and tense biceps</p>
+                            </div>
+                        </div>
+
+                        <div class="muscle-group" data-muscle="shoulders">
+                            <div class="muscle-icon">
+                                <i class="fas fa-chess-rook"></i>
+                            </div>
+                            <div>
+                                <h4>Shoulders and Neck</h4>
+                                <p>Raise shoulders toward ears</p>
+                            </div>
+                        </div>
+
+                        <div class="muscle-group" data-muscle="face">
+                            <div class="muscle-icon">
+                                <i class="fas fa-smile"></i>
+                            </div>
+                            <div>
+                                <h4>Face</h4>
+                                <p>Scrunch facial muscles</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="observation-step-card">
+                    <div class="step-number">2</div>
+                    <div>
+                        <h4>Release Tension</h4>
+                        <p>After tensing, quickly release and relax for 20 seconds. Notice the difference between
+                            tension and relaxation.</p>
+                    </div>
+                </div>
+
+                <div class="observation-step-card">
+                    <div class="step-number">3</div>
+                    <div>
+                        <h4>Breathe Deeply</h4>
+                        <p>As you release each muscle group, take a deep breath and exhale slowly.</p>
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin-top: 20px;">
+                    <button id="reset-progressive" class="btn btn-secondary" <i class="fas fa-redo"></i> Restart
+                        Relaxation
+                    </button>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Why Progressive Relaxation Works</h3>
+                <p>This technique is effective because:</p>
+                <ul style="padding-left: 20px; margin: 15px 0;">
+                    <li>Creates awareness of muscle tension</li>
+                    <li>Teaches the difference between tension and relaxation</li>
+                    <li>Reduces physical symptoms of anxiety</li>
+                    <li>Improves sleep quality by 65%</li>
+                    <li>Lowers blood pressure and heart rate</li>
+                </ul>
+                <p>A Johns Hopkins study showed it reduces tension headaches by 58% with regular practice.</p>
+            </div>
+        </section>
+
+        <!-- Nature Sounds -->
+        <section id="sounds-screen" class="screen">
+            <div class="card">
+                <h2><i class="fas fa-music"></i> Nature Sounds</h2>
+                <p>Select sounds to create your perfect relaxation environment</p>
+
+                <div class="sound-grid">
+                    <div class="sound-card" data-sound="rain">
+                        <i class="fas fa-cloud-rain"></i>
+                        <h3>Rain</h3>
+                    </div>
+                    <div class="sound-card" data-sound="waves">
+                        <i class="fas fa-water"></i>
+                        <h3>Ocean Waves</h3>
+                    </div>
+                    <div class="sound-card" data-sound="forest">
+                        <i class="fas fa-tree"></i>
+                        <h3>Forest</h3>
+                    </div>
+                    <div class="sound-card" data-sound="fire">
+                        <i class="fas fa-fire"></i>
+                        <h3>Crackling Fire</h3>
+                    </div>
+                    <div class="sound-card" data-sound="birds">
+                        <i class="fas fa-dove"></i>
+                        <h3>Birds</h3>
+                    </div>
+                    <div class="sound-card" data-sound="wind">
+                        <i class="fas fa-wind"></i>
+                        <h3>Wind</h3>
+                    </div>
+                </div>
+
+                <div style="margin-top: 20px;">
+                    <h3>Volume Control</h3>
+                    <input type="range" min="0" max="100" value="50" class="slider" style="width: 100%;">
+                </div>
+
+                <div class="controls" style="margin-top: 20px;">
+                    <button id="play-sounds" class="btn">
+                        <i class="fas fa-play"></i> Play All
+                    </button>
+                    <button id="stop-sounds" class="btn btn-secondary">
+                        <i class="fas fa-stop"></i> Stop
+                    </button>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Custom Sound Mixer</h2>
+                <p>Combine different nature sounds to create your perfect atmosphere</p>
+                <!-- Suggested Sound Environments -->
+                <div style="margin-bottom: 18px;">
+                    <h3 style="margin-bottom: 10px;">Suggested Sound Environments</h3>
+                    <div style="display: flex; flex-direction: column; gap: 10px;">
+                        <div>
+                            <span title="Forest"><i class="fas fa-tree" style="color:#4361ee;"></i></span>
+                            <span title="Fire"><i class="fas fa-fire" style="color:#ef476f;"></i></span>
+                            <span title="Wind"><i class="fas fa-wind" style="color:#06d6a0;"></i></span>
+                            <span style="margin-left:8px;font-weight:600;">Forest Camping on a Windy Night</span>
+                        </div>
+                        <div>
+                            <span title="Waves"><i class="fas fa-water" style="color:#4895ef;"></i></span>
+                            <span title="Fire"><i class="fas fa-fire" style="color:#ef476f;"></i></span>
+                            <span style="margin-left:8px;font-weight:600;">Bonfire on a Beach</span>
+                        </div>
+                        <div>
+                            <span title="Rain"><i class="fas fa-cloud-rain" style="color:#4cc9f0;"></i></span>
+                            <span title="Forest"><i class="fas fa-tree" style="color:#4361ee;"></i></span>
+                            <span style="margin-left:8px;font-weight:600;">Rain in the Forest</span>
+                        </div>
+                        <div>
+                            <span title="Birds"><i class="fas fa-dove" style="color:#ffd166;"></i></span>
+                            <span title="Forest"><i class="fas fa-tree" style="color:#4361ee;"></i></span>
+                            <span style="margin-left:8px;font-weight:600;">Morning in the Woods</span>
+                        </div>
+                        <div>
+                            <span title="Waves"><i class="fas fa-water" style="color:#4895ef;"></i></span>
+                            <span title="Wind"><i class="fas fa-wind" style="color:#06d6a0;"></i></span>
+                            <span style="margin-left:8px;font-weight:600;">Windy Ocean Shore</span>
+                        </div>
+                        <div>
+                            <span title="Rain"><i class="fas fa-cloud-rain" style="color:#4cc9f0;"></i></span>
+                            <span title="Birds"><i class="fas fa-dove" style="color:#ffd166;"></i></span>
+                            <span style="margin-left:8px;font-weight:600;">Rainy Garden</span>
+                        </div>
+                    </div>
+                </div>
+                <div id="sound-mixer" style="margin-top: 15px;">
+                    <!-- Sound controls will be generated here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Journal Screen -->
+        <section id="journal-screen" class="screen">
+            <div class="card">
+                <h2><i class="fas fa-book"></i> Gratitude Journal</h2>
+                <p>Take a moment to reflect on what you're thankful for today</p>
+
+                <div style="margin: 20px 0;">
+                    <textarea id="journal-entry" placeholder="What are you grateful for today?"></textarea>
+                </div>
+
+                <button id="save-journal" class="btn">
+                    <i class="fas fa-save"></i> Save Entry
+                </button>
+            </div>
+
+            <div class="card">
+                <h2>Past Entries</h2>
+                <div id="journal-entries">
+                    <!-- Journal entries will be loaded here -->
+                    <div class="journal-entry">
+                        <p><strong>Today</strong> - I'm grateful for the sunny weather and my morning coffee</p>
+                    </div>
+                    <div class="journal-entry">
+                        <p><strong>Yesterday</strong> - Grateful for my friend who listened when I needed to talk</p>
+                    </div>
+                    <div class="journal-entry">
+                        <p><strong>June 18</strong> - Thankful for the beautiful walk in the park I had today</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- grounding screen -->
+    <section id="grounding-screen" class="screen">
+        <div class="card">
+            <h2>
+                <i class="fas fa-hand-sparkles" style="color:var(--color-primary);margin-right:10px;"></i>
+                5-4-3-2-1 Grounding Exercise
+            </h2>
+            <p>This technique helps you focus on the present moment by engaging your senses.</p>
+            <div class="grounding-container">
+                <div class="sense-item" data-sense="see">
+                    <h3><i class="fas fa-eye"></i> 5 Things You See</h3>
+                    <p>Look around and notice five things you can see.</p>
+                </div>
+                <div class="sense-item" data-sense="touch">
+                    <h3><i class="fas fa-hand-paper"></i> 4 Things You Can Touch</h3>
+                    <p>Notice four things you can feel or touch.</p>
+                </div>
+                <div class="sense-item" data-sense="hear">
+                    <h3><i class="fas fa-assistive-listening-systems"></i> 3 Things You Hear</h3>
+                    <p>Listen for three distinct sounds around you.</p>
+                </div>
+                <div class="sense-item" data-sense="smell">
+                    <h3><i class="fas fa-wind"></i> 2 Things You Smell</h3>
+                    <p>Notice two things you can smell (or like to smell).</p>
+                </div>
+                <div class="sense-item" data-sense="taste">
+                    <h3><i class="fas fa-utensils"></i> 1 Thing You Taste</h3>
+                    <p>Notice one thing you can taste (or like to taste).</p>
+                </div>
+                <button id="reset-grounding" class="btn btn-secondary" style="margin-top: 20px;">
+                    <i class="fas fa-redo"></i> Reset Exercise
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <button class="nav-btn active" data-target="home-screen">
+            <i class="fas fa-home"></i>
+        </button>
+        <button class="nav-btn" data-target="breathing-screen">
+            <i class="fas fa-wind"></i>
+        </button>
+        <button class="nav-btn" data-target="body-scan-screen">
+            <i class="fas fa-user-md"></i>
+        </button>
+        <button class="nav-btn" data-target="observation-screen">
+            <i class="fas fa-eye"></i>
+        </button>
+        <button class="nav-btn" data-target="sounds-screen">
+            <i class="fas fa-music"></i>
+        </button>
+        <button class="nav-btn" data-target="journal-screen">
+            <i class="fas fa-book"></i>
+        </button>
+    </nav>
+
+    <!-- Audio Elements -->
+    <audio id="sound-rain" loop>
+        <source src="rain" type="audio/mpeg">
+    </audio>
+    <audio id="sound-waves" loop>
+        <source src="ocean-waves.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="sound-birds" loop>
+        <source src="birds.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="sound-wind" loop>
+        <source src="wind.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="sound-fire" loop>
+        <source src="fire-sound.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="sound-forest" loop>
+        <source src="forest.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        // App State Management
+        const AppState = {
+            currentScreen: 'home-screen',
+            theme: localStorage.getItem('theme') || 'light',
+            breathingState: 'ready', // ready, inhale, hold, exhale, complete
+            currentBreathCycle: 0,
+            journalEntries: JSON.parse(localStorage.getItem('journalEntries')) || [],
+            mindfulnessPrompts: [
+                "The play of light and shadow around you",
+                "The intricate patterns on a leaf",
+                "The movement of clouds in the sky",
+                "The texture of an everyday object",
+                "The sound of your own breathing",
+                "The sensation of air on your skin",
+                "The subtle flavors in a sip of water",
+                "The way shadows change throughout the day",
+                "The architecture of a simple flower",
+                "The rhythm of footsteps in the distance"
+            ],
+            mindfulnessTips: [
+                {
+                    tip: "Practice deep breathing for 5 minutes to reduce stress hormones.",
+                    fact: "Research shows that just 5 minutes of deep breathing can lower cortisol levels by up to 30%."
+                },
+                {
+                    tip: "Take a mindful walk and notice the sensations in your feet.",
+                    fact: "Walking meditation can improve mood and reduce anxiety by 20%."
+                },
+                {
+                    tip: "Pause and observe your surroundings for one minute.",
+                    fact: "Short mindfulness breaks boost focus and productivity."
+                },
+                {
+                    tip: "Write down three things you're grateful for today.",
+                    fact: "Gratitude journaling increases happiness and reduces depression."
+                },
+                {
+                    tip: "Try the 4-7-8 breathing technique to calm your mind.",
+                    fact: "The 4-7-8 technique slows heart rate and activates relaxation."
+                },
+                {
+                    tip: "Notice the feeling of your breath entering and leaving your body.",
+                    fact: "Breath awareness reduces stress and improves emotional regulation."
+                },
+                {
+                    tip: "Listen to the sounds around you without judgment.",
+                    fact: "Sound mindfulness can lower blood pressure and ease tension."
+                },
+                {
+                    tip: "Stretch your body gently and notice how it feels.",
+                    fact: "Gentle stretching releases endorphins and reduces muscle tension."
+                },
+                {
+                    tip: "Smile at yourself in the mirror to boost your mood.",
+                    fact: "Smiling, even when alone, can trigger positive brain chemistry."
+                },
+                {
+                    tip: "Drink a glass of water slowly, savoring each sip.",
+                    fact: "Mindful hydration supports digestion and mental clarity."
+                }
+            ],
+            bodyScan: {
+                currentPartIndex: 0,
+                completedParts: [],
+                scanInProgress: false
+            }
+        };
+
+        // List of trackable activities (screen IDs)
+        const activityScreens = [
+            'breathing-screen',
+            'body-scan-screen',
+            'observation-screen',
+            'sounds-screen',
+            'journal-screen',
+            'grounding-screen',
+            'progressive-screen',
+            'loving-kindness-screen'
+        ];
+
+        // Track visited and completed activities
+        AppState.visitedActivities = JSON.parse(localStorage.getItem('visitedActivities')) || [];
+        AppState.completedActivities = JSON.parse(localStorage.getItem('completedActivities')) || [];
+
+        // Call this whenever a screen is visited
+        function markActivityVisited(screenId) {
+            if (activityScreens.includes(screenId) && !AppState.visitedActivities.includes(screenId)) {
+                AppState.visitedActivities.push(screenId);
+                localStorage.setItem('visitedActivities', JSON.stringify(AppState.visitedActivities));
+                updateProgressBar();
+            }
+        }
+
+        // Call this when an activity is completed
+        function markActivityCompleted(screenId) {
+            if (activityScreens.includes(screenId) && !AppState.completedActivities.includes(screenId)) {
+                AppState.completedActivities.push(screenId);
+                localStorage.setItem('completedActivities', JSON.stringify(AppState.completedActivities));
+                updateProgressBar();
+            }
+        }
+
+        // Update the progress bar UI
+        function updateProgressBar() {
+            const total = activityScreens.length;
+            const visited = AppState.visitedActivities.length;
+            const completed = AppState.completedActivities.length;
+
+            const visitedPercent = Math.round((visited / total) * 100);
+            const completedPercent = Math.round((completed / total) * 100);
+
+            document.getElementById('progress-visited-fill').style.width = visitedPercent + '%';
+            document.getElementById('progress-completed-fill').style.width = completedPercent + '%';
+            document.getElementById('progress-text').textContent = `${completed} completed / ${visited} visited`;
+        }
+
+        // Call updateProgressBar on load
+        window.addEventListener('DOMContentLoaded', updateProgressBar);
+
+        // Track unique days and total visits
+        function getTodayString() {
+            const now = new Date();
+            return now.toISOString().slice(0, 10); // YYYY-MM-DD
+        }
+
+        // Get or initialize unique days array
+        let uniqueDays = JSON.parse(localStorage.getItem('uniqueDays')) || [];
+        const today = getTodayString();
+        if (!uniqueDays.includes(today)) {
+            uniqueDays.push(today);
+            localStorage.setItem('uniqueDays', JSON.stringify(uniqueDays));
+        }
+
+        // Get or initialize total visits count
+        let totalVisits = parseInt(localStorage.getItem('totalVisits') || '0', 10);
+        totalVisits += 1;
+        localStorage.setItem('totalVisits', totalVisits);
+
+        // Function to update the progress card stats
+        function updateVisitStats() {
+            const daysElem = document.getElementById('unique-days');
+            const visitsElem = document.getElementById('total-visits');
+            if (daysElem) daysElem.textContent = uniqueDays.length;
+            if (visitsElem) visitsElem.textContent = totalVisits;
+        }
+
+        // Call on load
+        window.addEventListener('DOMContentLoaded', updateVisitStats);
+        // DOM Elements
+        const DOM = {
+            themeToggle: document.getElementById('theme-toggle'),
+            screens: document.querySelectorAll('.screen'),
+            navButtons: document.querySelectorAll('.nav-btn'),
+            statCards: document.querySelectorAll('.stat-card'),
+            startBreathBtn: document.getElementById('start-breath-btn'),
+            resetBreathBtn: document.getElementById('reset-breath-btn'),
+            breathTimer: document.getElementById('breath-timer'),
+            breathPhase: document.getElementById('breath-phase'),
+            currentCycle: document.getElementById('current-cycle'),
+            progressionIndicator: document.getElementById('progression-indicator'),
+            bodyCardsContainer: document.querySelector('.body-cards-container'),
+            startScanBtn: document.getElementById('start-scan'),
+            resetScanBtn: document.getElementById('reset-scan'),
+            completeScanBtn: document.getElementById('complete-scan'),
+            scanProgressFill: document.getElementById('scan-progress-fill'),
+            scanProgressText: document.getElementById('scan-progress-text'),
+            observationText: document.getElementById('observation-text'),
+            soundCards: document.querySelectorAll('.sound-card'),
+            playSounds: document.getElementById('play-sounds'),
+            stopSounds: document.getElementById('stop-sounds'),
+            journalEntry: document.getElementById('journal-entry'),
+            saveJournal: document.getElementById('save-journal'),
+            journalEntries: document.getElementById('journal-entries')
+        };
+
+        // Body Scan Data
+        const bodyParts = [
+            {
+                id: "head",
+                title: "Head & Mind",
+                icon: "fas fa-brain",
+                description: "Notice any tension in your forehead, scalp, or jaw. Soften your facial muscles and release your jaw.",
+                time: 30,
+                instructions: "Focus on your thoughts without judgment. Imagine tension melting away from your head."
+            },
+            {
+                id: "shoulders",
+                title: "Shoulders & Neck",
+                icon: "fas fa-chess-rook",
+                description: "Feel the weight of your shoulders. Are they tense or relaxed? Allow them to drop away from your ears.",
+                time: 40,
+                instructions: "Roll your shoulders gently. Notice any knots or tension. Breathe into these areas."
+            },
+            {
+                id: "arms",
+                title: "Arms & Hands",
+                icon: "fas fa-hand-paper",
+                description: "Notice any tension in your hands, arms, or elbows. Imagine warmth flowing through them.",
+                time: 35,
+                instructions: "Clench and release your hands. Feel the energy flowing to your fingertips."
+            },
+            {
+                id: "chest",
+                title: "Chest & Heart",
+                icon: "fas fa-heart",
+                description: "Observe your breath moving through your chest. Is your breathing shallow or deep?",
+                time: 45,
+                instructions: "Place a hand on your heart. Feel its rhythm. Send gratitude to your heart for its constant work."
+            },
+            {
+                id: "stomach",
+                title: "Stomach & Core",
+                icon: "fas fa-apple-alt",
+                description: "Notice any sensations in your abdomen. Place your hand there and feel the gentle rise and fall.",
+                time: 40,
+                instructions: "Breathe deeply into your belly. Release any nervous tension in your core."
+            },
+            {
+                id: "hips",
+                title: "Hips & Pelvis",
+                icon: "fas fa-arrows-alt-h",
+                description: "Observe any tension in your hips and pelvis. This area often holds emotional stress.",
+                time: 35,
+                instructions: "Gently rock your hips. Imagine releasing stored emotions with each exhale."
+            },
+            {
+                id: "legs",
+                title: "Legs & Thighs",
+                icon: "fas fa-walking",
+                description: "Notice the contact points with the surface beneath you. Feel the support they provide.",
+                time: 40,
+                instructions: "Tense and release your thigh muscles. Appreciate the strength in your legs."
+            },
+            {
+                id: "feet",
+                title: "Feet & Toes",
+                icon: "fas fa-shoe-prints",
+                description: "Wiggle your toes. Notice any sensations in your feet and ankles. Ground yourself through your feet.",
+                time: 45,
+                instructions: "Imagine roots growing from your feet into the earth, grounding and stabilizing you."
+            }
+        ];
+
+        // Initialize the App
+        function initApp() {
+            // Set initial theme
+            setTheme(AppState.theme);
+
+            // Initialize components
+            initBreathing();
+            initBodyScanCards();
+            setRandomObservationPrompt();
+            setRandomMindfulnessTip();
+            loadJournalEntries();
+
+            // Set up event listeners
+            setupEventListeners();
+        }
+
+        function setRandomMindfulnessTip() {
+            const tips = AppState.mindfulnessTips;
+            const randomIndex = Math.floor(Math.random() * tips.length);
+            const tipObj = tips[randomIndex];
+            // Set the tip and fact in the card
+            const tipElement = document.getElementById('mindfulness-tip');
+            const factElement = document.getElementById('mindfulness-fact');
+            if (tipElement) {
+                tipElement.textContent = tipObj.tip;
+            }
+            if (factElement) {
+                factElement.textContent = tipObj.fact;
+            }
+        }
+
+        // Set up event listeners
+        function setupEventListeners() {
+            // Theme toggle
+            DOM.themeToggle.addEventListener('click', toggleTheme);
+
+            // Navigation
+            DOM.navButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const targetScreen = button.getAttribute('data-target');
+                    switchScreen(targetScreen);
+                });
+            });
+
+            // Stat cards
+            DOM.statCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    const targetScreen = card.getAttribute('data-target');
+                    switchScreen(targetScreen);
+                });
+            });
+
+            // Breathing exercise
+            DOM.startBreathBtn.addEventListener('click', startBreathingExercise);
+            DOM.resetBreathBtn.addEventListener('click', resetBreathingExercise);
+
+            // Grounding Exercise Logic
+            document.querySelectorAll('#grounding-screen .sense-item').forEach(item => {
+                item.addEventListener('click', function () {
+                    item.classList.add('completed');
+                    // Optional: add a nudge effect
+                    item.style.transform = 'translateX(5px)';
+                    setTimeout(() => {
+                        item.style.transform = '';
+                    }, 150);
+                });
+                markActivityCompleted('grounding-screen');
+            });
+            // Reset button
+            const resetBtn = document.getElementById('reset-grounding');
+            if (resetBtn) {
+                resetBtn.addEventListener('click', function () {
+                    document.querySelectorAll('#grounding-screen .sense-item').forEach(item => {
+                        item.classList.remove('completed');
+                        item.style.transform = '';
+                    });
+                });
+            }
+
+            // Body scan
+            DOM.startScanBtn.addEventListener('click', startBodyScan);
+            DOM.resetScanBtn.addEventListener('click', resetScan);
+            DOM.completeScanBtn.addEventListener('click', completeMeditation);
+
+            // Nature sounds
+            DOM.soundCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    card.classList.toggle('active');
+                    const sound = card.getAttribute('data-sound');
+                    toggleSound(sound);
+                });
+            });
+
+            DOM.playSounds.addEventListener('click', playAllSounds);
+            DOM.stopSounds.addEventListener('click', stopAllSounds);
+
+            // Journal
+            DOM.saveJournal.addEventListener('click', saveJournalEntry);
+
+            // Progressive Muscle Relaxation selection and reset
+            document.querySelectorAll('#progressive-screen .muscle-group').forEach(item => {
+                item.addEventListener('click', function () {
+                    // Toggle active state
+                    if (item.classList.contains('active')) {
+                        item.classList.remove('active');
+                    } else {
+                        item.classList.add('active');
+                        item.style.transform = 'translateX(5px)';
+                        setTimeout(() => {
+                            item.style.transform = '';
+                        }, 150);
+                    }
+                });
+            });
+            const resetProgressive = document.getElementById('reset-progressive');
+            if (resetProgressive) {
+                resetProgressive.addEventListener('click', function () {
+                    document.querySelectorAll('#progressive-screen .muscle-group').forEach(item => {
+                        item.classList.remove('active');
+                        item.style.transform = '';
+                    });
+                });
+            }
+
+            // Loving Kindness selection and reset
+            document.querySelectorAll('#loving-kindness-screen .person-card').forEach(item => {
+                item.addEventListener('click', function () {
+                    // Toggle active state
+                    if (item.classList.contains('active')) {
+                        item.classList.remove('active');
+                    } else {
+                        item.classList.add('active');
+                        item.style.transform = 'translateX(5px)';
+                        setTimeout(() => {
+                            item.style.transform = '';
+                        }, 150);
+                    }
+                });
+            });
+            const resetKindness = document.getElementById('reset-kindness');
+            if (resetKindness) {
+                resetKindness.addEventListener('click', function () {
+                    document.querySelectorAll('#loving-kindness-screen .person-card').forEach(item => {
+                        item.classList.remove('active');
+                        item.style.transform = '';
+                    });
+                });
+            }
+        }
+
+        // Theme Functions
+        function setTheme(theme) {
+            AppState.theme = theme;
+            document.body.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+
+            // Update toggle button icon
+            const icon = DOM.themeToggle.querySelector('i');
+            icon.className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+            icon.style.color = theme === 'dark' ? '#FFD166' : ''; // yellow for sun, default for moon
+        }
+
+        function toggleTheme() {
+            const newTheme = AppState.theme === 'light' ? 'dark' : 'light';
+            setTheme(newTheme);
+        }
+
+        // Screen Navigation
+        function switchScreen(screenId) {
+            // Hide all screens
+            DOM.screens.forEach(screen => {
+                screen.classList.remove('active');
+            });
+
+            // Show target screen
+            document.getElementById(screenId).classList.add('active');
+            AppState.currentScreen = screenId;
+
+            // Mark as visited if it's a trackable activity
+            markActivityVisited(screenId);
+
+            // Update active nav button
+            DOM.navButtons.forEach(button => {
+                if (button.getAttribute('data-target') === screenId) {
+                    button.classList.add('active');
+                } else {
+                    button.classList.remove('active');
+                }
+            });
+
+            // Update app state
+            AppState.currentScreen = screenId;
+
+            // Special initialization for some screens
+            if (screenId === 'observation-screen') {
+                setRandomObservationPrompt();
+            }
+
+            // Scroll to top of the page
+            window.scrollTo({ top: 0, behavior: 'instant' }); // or 'smooth' for smooth scroll
+        }
+
+        // Breathing Exercise
+        function initBreathing() {
+            resetBreathingExercise();
+        }
+
+        function startBreathingExercise() {
+            if (AppState.breathingState === 'ready' || AppState.breathingState === 'complete') {
+                AppState.currentBreathCycle = 0;
+                startInhale();
+            }
+        }
+
+        function startInhale() {
+            AppState.breathingState = 'inhale';
+            updateBreathingUI();
+
+            // Update progression indicator
+            DOM.progressionIndicator.style.left = '30%';
+
+            // Update timer countdown
+            startCountdown(4, () => startHold());
+        }
+
+        function startHold() {
+            AppState.breathingState = 'hold';
+            updateBreathingUI();
+
+            // Update progression indicator
+            DOM.progressionIndicator.style.left = '50%';
+
+            // Update timer countdown
+            startCountdown(7, () => startExhale());
+        }
+
+        function startExhale() {
+            AppState.breathingState = 'exhale';
+            updateBreathingUI();
+
+            // Update progression indicator
+            DOM.progressionIndicator.style.left = '70%';
+
+            // Update timer countdown
+            startCountdown(8, () => {
+                AppState.currentBreathCycle++;
+                if (AppState.currentBreathCycle < 4) {
+                    startInhale();
+                } else {
+                    completeBreathing();
+                }
+            });
+        }
+
+        function completeBreathing() {
+            AppState.breathingState = 'complete';
+            DOM.breathPhase.textContent = "Complete!";
+            DOM.breathTimer.textContent = "✓";
+            markActivityCompleted('breathing-screen');
+            // Show completion message
+            setTimeout(() => {
+                alert("Stay calm, stay strong. You've got this!");
+            }, 500);
+
+            // Update progression indicator
+            DOM.progressionIndicator.style.left = '90%';
+        }
+
+        function updateBreathingUI() {
+            DOM.breathPhase.textContent =
+                AppState.breathingState === 'inhale' ? "Inhale deeply" :
+                    AppState.breathingState === 'hold' ? "Hold" :
+                        AppState.breathingState === 'exhale' ? "Exhale slowly" : "";
+
+            DOM.currentCycle.textContent = AppState.currentBreathCycle + 1;
+        }
+
+        function startCountdown(seconds, callback) {
+            let count = seconds;
+            DOM.breathTimer.textContent = count;
+
+            const timer = setInterval(() => {
+                count--;
+                DOM.breathTimer.textContent = count;
+
+                if (count <= 0) {
+                    clearInterval(timer);
+                    callback();
+                }
+            }, 1000);
+        }
+
+        function resetBreathingExercise() {
+            AppState.breathingState = 'ready';
+            AppState.currentBreathCycle = 0;
+
+            DOM.breathTimer.textContent = "4";
+            DOM.breathPhase.textContent = "Ready to begin";
+            DOM.currentCycle.textContent = "1";
+
+            DOM.progressionIndicator.style.left = "10%";
+        }
+
+        // Body Scan Meditation
+        function initBodyScanCards() {
+            DOM.bodyCardsContainer.innerHTML = '';
+            bodyParts.forEach((part, index) => {
+                const card = document.createElement('div');
+                card.className = 'body-card';
+                card.id = `card-${part.id}`;
+                card.dataset.part = part.id;
+                card.innerHTML = `
+                    <div class="body-icon">
+                        <i class="${part.icon}"></i>
+                    </div>
+                    <h3>${part.title}</h3>
+                    <p>${part.description}</p>
+                    <div class="timer-display">${part.time} seconds</div>
+                    <div class="instructions" style="margin-top: 15px; font-style: italic; display: none;">
+                        ${part.instructions}
+                    </div>
+                `;
+                DOM.bodyCardsContainer.appendChild(card);
+                markActivityCompleted('body-scan-screen');
+                // Add event listener to card
+                card.addEventListener('click', () => {
+                    if (card.classList.contains('active')) {
+                        completeCurrentPart();
+                    }
+                });
+            });
+        }
+
+        function startBodyScan() {
+            if (AppState.bodyScan.scanInProgress) return;
+
+            AppState.bodyScan.scanInProgress = true;
+            AppState.bodyScan.currentPartIndex = 0;
+            AppState.bodyScan.completedParts = [];
+            updateScanProgress();
+
+            // Hide start button, show reset button
+            DOM.startScanBtn.style.display = 'none';
+            DOM.resetScanBtn.style.display = 'inline-flex';
+            DOM.completeScanBtn.style.display = 'none';
+
+            // Activate first card
+            activateCard(AppState.bodyScan.currentPartIndex);
+        }
+
+        function activateCard(index) {
+            // Deactivate all cards
+            document.querySelectorAll('.body-card').forEach(card => {
+                card.classList.remove('active');
+                card.querySelector('.instructions').style.display = 'none';
+            });
+
+            // Activate the current card
+            const currentCard = document.querySelector(`#card-${bodyParts[index].id}`);
+            if (currentCard) {
+                currentCard.classList.add('active');
+                currentCard.querySelector('.instructions').style.display = 'block';
+                currentCard.classList.add('fade-in');
+            }
+        }
+
+        function completeCurrentPart() {
+            if (!AppState.bodyScan.scanInProgress) return;
+
+            // Add to completed parts
+            AppState.bodyScan.completedParts.push(AppState.bodyScan.currentPartIndex);
+
+            // Mark card as completed
+            const currentCard = document.querySelector(`#card-${bodyParts[AppState.bodyScan.currentPartIndex].id}`);
+            if (currentCard) {
+                currentCard.classList.remove('active');
+                currentCard.classList.add('completed');
+            }
+
+            // Move to next part
+            AppState.bodyScan.currentPartIndex++;
+
+            if (AppState.bodyScan.currentPartIndex < bodyParts.length) {
+                // Activate next card
+                setTimeout(() => activateCard(AppState.bodyScan.currentPartIndex), 500);
+            } else {
+                // Scan complete
+                scanComplete();
+            }
+
+            updateScanProgress();
+        }
+
+        function updateScanProgress() {
+            const progress = Math.round((AppState.bodyScan.completedParts.length / bodyParts.length) * 100);
+            DOM.scanProgressFill.style.width = `${progress}%`;
+            DOM.scanProgressText.textContent = `${progress}%`;
+        }
+
+        function scanComplete() {
+            AppState.bodyScan.scanInProgress = false;
+            DOM.completeScanBtn.style.display = 'inline-flex';
+
+            // Show celebration message
+            setTimeout(() => {
+                alert("🎉 Body Scan Complete! 🎉\n\nYou've brought awareness to your entire body. Notice how you feel more relaxed and connected to yourself.");
+            }, 500);
+        }
+
+        function resetScan() {
+            AppState.bodyScan.scanInProgress = false;
+            AppState.bodyScan.currentPartIndex = 0;
+            AppState.bodyScan.completedParts = [];
+
+            // Reset cards
+            document.querySelectorAll('.body-card').forEach(card => {
+                card.classList.remove('active', 'completed', 'fade-in');
+                card.querySelector('.instructions').style.display = 'none';
+            });
+
+            // Reset buttons
+            DOM.startScanBtn.style.display = 'inline-flex';
+            DOM.resetScanBtn.style.display = 'none';
+            DOM.completeScanBtn.style.display = 'none';
+
+            updateScanProgress();
+        }
+
+        function completeMeditation() {
+            resetScan();
+            alert("🙏 Thank you for your mindfulness practice!\n\nRegular body scans can reduce stress by up to 40% and improve body awareness.");
+        }
+
+        // Mindful Observation
+        function setRandomObservationPrompt() {
+            const randomIndex = Math.floor(Math.random() * AppState.mindfulnessPrompts.length);
+            DOM.observationText.textContent = AppState.mindfulnessPrompts[randomIndex];
+        }
+
+        let observationTimer = null;
+        let observationTimerStart = null;
+        let observationTimerDuration = null;
+        let observationTimerMinutes = null;
+
+        function resetObservationTimer() {
+            clearInterval(observationTimer);
+            observationTimer = null;
+            observationTimerStart = null;
+            observationTimerDuration = null;
+            observationTimerMinutes = null;
+            const fill = document.getElementById('observation-timer-fill');
+            const countdown = document.getElementById('observation-timer-countdown');
+            if (fill) fill.style.width = '100%';
+            if (countdown) countdown.textContent = '0:00';
+        }
+
+        function startObservationTimer(minutes) {
+            resetObservationTimer();
+            const fill = document.getElementById('observation-timer-fill');
+            const countdown = document.getElementById('observation-timer-countdown');
+            if (!fill || !countdown) return;
+            observationTimerDuration = minutes * 60 * 1000;
+            observationTimerStart = Date.now();
+            observationTimerMinutes = minutes;
+
+            fill.style.width = '100%';
+
+            observationTimer = setInterval(() => {
+                const elapsed = Date.now() - observationTimerStart;
+                const remaining = Math.max(0, observationTimerDuration - elapsed);
+                let percent = Math.max(0, 100 - (elapsed / observationTimerDuration) * 100);
+                fill.style.width = percent + '%';
+
+                // Countdown in minutes:seconds
+                const mins = Math.floor(remaining / 60000);
+                const secs = Math.floor((remaining % 60000) / 1000);
+                countdown.textContent = `${mins}:${secs.toString().padStart(2, '0')}`;
+
+                if (remaining <= 0) {
+                    clearInterval(observationTimer);
+                    observationTimer = null;
+                    fill.style.width = '0%';
+                    countdown.textContent = '0:00';
+                    alert(`Time's up! Your ${minutes} minute mindful observation is complete.`);
+                    markActivityCompleted('observation-screen');
+                }
+            }, 100);
+        }
+
+        // Attach event listeners after DOMContentLoaded or in your setupEventListeners()
+        document.querySelectorAll('.observation-timer-btn').forEach(btn => {
+            btn.addEventListener('click', function () {
+                const minutes = parseInt(btn.getAttribute('data-minutes'), 10);
+                startObservationTimer(minutes);
+            });
+        });
+
+        // Nature Sounds
+        function toggleSound(sound) {
+            const soundElement = document.getElementById(`sound-${sound}`);
+
+            if (soundElement.paused) {
+                soundElement.play().catch(e => console.log("Audio play error:", e));
+            } else {
+                soundElement.pause();
+            }
+        }
+
+        function playAllSounds() {
+            DOM.soundCards.forEach(card => {
+                const sound = card.getAttribute('data-sound');
+                const soundElement = document.getElementById(`sound-${sound}`);
+                card.classList.add('active');
+                soundElement.play().catch(e => console.log("Audio play error:", e));
+            });
+        }
+
+        function stopAllSounds() {
+            DOM.soundCards.forEach(card => {
+                const sound = card.getAttribute('data-sound');
+                const soundElement = document.getElementById(`sound-${sound}`);
+                card.classList.remove('active');
+                soundElement.pause();
+                soundElement.currentTime = 0;
+            });
+            markActivityCompleted('sounds-screen');
+        }
+
+        // Journal Functions
+        function saveJournalEntry() {
+            const entryText = DOM.journalEntry.value.trim();
+            if (entryText) {
+                const now = new Date();
+                const entry = {
+                    date: now.toLocaleDateString(),
+                    time: now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+                    text: entryText
+                };
+
+                AppState.journalEntries.unshift(entry);
+                localStorage.setItem('journalEntries', JSON.stringify(AppState.journalEntries));
+
+                // Clear textarea
+                DOM.journalEntry.value = '';
+
+                // Reload entries
+                loadJournalEntries();
+
+                // Show confirmation
+                alert("Entry saved successfully!");
+            }
+            markActivityCompleted('journal-screen');
+        }
+
+        function loadJournalEntries() {
+            DOM.journalEntries.innerHTML = '';
+
+            AppState.journalEntries.forEach(entry => {
+                const entryElement = document.createElement('div');
+                entryElement.className = 'journal-entry';
+                entryElement.innerHTML = `
+                    <p><strong>${entry.date} ${entry.time}</strong> - ${entry.text}</p>
+                `;
+                DOM.journalEntries.appendChild(entryElement);
+            });
+        }
+
+        // Initialize the app when the page loads
+        window.addEventListener('DOMContentLoaded', initApp);
+    </script>
+</body>
+
+</html>
