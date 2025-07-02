@@ -79,4 +79,46 @@ Explore a suite of interactive tools: practice calming breathing exercises, enjo
 
 ---
 
-## 🚀 How
+## 🚀 How to Use
+
+1. **Navigation**: Use the bottom nav bar to switch between activities.
+2. **Interaction**: Click all the cards. Yes, ALL of them. Have fun!
+3. **Theme**: Toggle between light/dark in the top-right corner.
+4. **Progress**: Saved automatically using browser `localStorage`.
+5. **Journal**: Add gratitude entries and reflect over time.
+
+---
+
+## 🛠️ Technologies Used
+
+| Tech | Description |
+|------|-------------|
+| **HTML5** | Markup and content structure |
+| **CSS3** | Styling, layout, animations |
+| **JavaScript** | Interactivity, timers, state |
+| **Font Awesome** | Icons |
+| **Google Fonts** | *Nunito* and *Quicksand* for typography |
+
+#### ✨ CSS Highlights
+- Variables for theming (`--color-bg`, `--color-text`, etc.)
+- Flex/Grid responsive layouts
+- Animations: `breatheIn`, `pulse`, `float`
+- Media queries for mobile responsiveness
+
+#### 🧠 JavaScript Highlights
+- **AppState**: Central object for all app states
+- **DOM Caching**: Fast, readable UI updates
+- `initApp()`: Initializes themes, screens, listeners
+- `switchScreen()`: Navigates UI sections
+- Activity tracking and localStorage syncing
+- Custom breathing cycles and meditations
+- Dynamic DOM generation for journal entries and body scan
+
+---
+
+## 💖 Contribution & Philosophy
+
+It’s not just an app—it’s your **pocket toolkit for mental resilience**.  
+Built entirely by me (with a little help from my favorite AI co-pilot) 💫  
+And yes... it’s **100% free and for everyone.**  
+Powered by passion and HTML magic. 
